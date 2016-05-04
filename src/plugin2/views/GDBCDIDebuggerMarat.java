@@ -28,6 +28,7 @@ public class GDBCDIDebuggerMarat extends GDBCDIDebugger2 {
 	
 	public ICDISession createSession( ILaunch launch, File executable, IProgressMonitor monitor ) throws CoreException {
 		System.out.println("!YES");
+		System.out.println("Hi");
 		//ICDISession session = super.createSession(launch, executable, monitor);
 		boolean failed = false;
 		if ( monitor == null ) {

@@ -37,6 +37,7 @@ public class CDIDebugger implements ICDIDebugger2 {
 		boolean usePty = usePty( config );
 		try {
 			System.out.println("!!!!!!!!!!!! "+ gdbPath.toOSString());
+			System.out.println("CdiDebugger");
 			String gpath = "/usr/local/bin/gdb";
 			
 			session = MIPlugin.getDefault().createSession( getSessionType( config ), gpath, factory, executable, extraArgs, usePty, monitor );
