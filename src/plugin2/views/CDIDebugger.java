@@ -34,6 +34,11 @@ public class CDIDebugger implements ICDIDebugger2 {
 		CommandFactory factory = getCommandFactory(config);
 		
 		String[] extraArgs = getExtraArguments( config );
+		System.out.println("ARGS");
+		for (String arg : extraArgs){
+			System.out.println("    ARG = " + arg);
+		}
+		
 		boolean usePty = usePty( config );
 		try {
 			System.out.println("!!!!!!!!!!!! "+ gdbPath.toOSString());

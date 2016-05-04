@@ -24,60 +24,15 @@ import org.eclipse.debug.core.model.IProcess;
 
 public class GDBCDIDebuggerMarat extends GDBCDIDebugger2 {
 	
-	private static Session session = null;
+	private static ICDISession session = null;
 	
 	public ICDISession createSession( ILaunch launch, File executable, IProgressMonitor monitor ) throws CoreException {
-		System.out.println("!YES");
-		System.out.println("Hi");
-		//ICDISession session = super.createSession(launch, executable, monitor);
-		boolean failed = false;
-		if ( monitor == null ) {
-			monitor = new NullProgressMonitor();
-		}
-		if ( monitor.isCanceled() ) {
-			throw new OperationCanceledException();
-		}
-		boolean verboseMode = verboseMode( launch.getLaunchConfiguration() );
-		boolean breakpointsFullPath = getBreakpointsWithFullNameAttribute(launch.getLaunchConfiguration() );
-		session = createGDBSession( launch, executable, monitor );
-		if ( session != null ) {
-			try {
-				ICDITarget[] targets = session.getTargets();
-				for( int i = 0; i < targets.length; i++ ) {
-					Process debugger = session.getSessionProcess( targets[i] );
-					if ( debugger != null ) {
-						IProcess debuggerProcess = createGDBProcess( (Target)targets[i], launch, debugger, renderDebuggerProcessLabel( launch ), null );
-						launch.addProcess( debuggerProcess );
-					}
-					Target target = (Target)targets[i];
-					target.enableVerboseMode( verboseMode );
-					target.getMISession().setBreakpointsWithFullName(breakpointsFullPath);
-					target.getMISession().start();
-				
-				}
-				doStartSession( launch, session, monitor );
-			}
-			catch( MIException e ) {
-				failed = true;
-				throw newCoreException( e );
-			}
-			catch( CoreException e ) {
-				failed = true;
-				throw e;
-			}
-			finally {
-				try {
-					if ( (failed || monitor.isCanceled()) && session != null )
-						session.terminate();
-				}
-				catch( CDIException e1 ) {
-				}
-			}
-		}
+		session = super.createSession(launch, executable, monitor);
 		return session;
+
 	}
 	
-	public static Session getSession(){
+	public static ICDISession getSession(){
 		return session;
 	}
 	
@@ -86,8 +41,12 @@ public class GDBCDIDebuggerMarat extends GDBCDIDebugger2 {
 		Session session = null;
 		IPath gdbPath = getGDBPath( launch );
 		ILaunchConfiguration config = launch.getLaunchConfiguration();
+		
 		CommandFactory factory = getCommandFactory( config );
 		String[] extraArgs = getExtraArguments( config );
+		
+
+		
 		boolean usePty = usePty( config );
 		try {
 	

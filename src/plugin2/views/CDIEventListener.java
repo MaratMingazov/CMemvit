@@ -84,20 +84,8 @@ public class CDIEventListener implements ICDIEventListener{
 				System.out.println("MITarget = " + ttarget);
 				MISession misession = ttarget.getMISession();
 				//misession
-				System.out.println("misession = " + misession.toString());
-				//RxThread RxThread = misession.getRxThread();
-				//System.out.println("RxThreadState = " + RxThread.getState());
-				//System.out.println("RxThreadGetName = " + RxThread.getName());
-				//System.out.println("RxThreadStackTraceLength = " + RxThread.getStackTrace().length);
-				//StackTraceElement[] RxThreadStackTraces = RxThread.getStackTrace();
-				//for (StackTraceElement element : RxThreadStackTraces){
-				//	System.out.println("   ClassName = " + element.getClassName());
-				//	System.out.println("   MethodName = " + element.getMethodName());
-				//	System.out.println("   LineNumber = " + element.getLineNumber());
-				//	System.out.println("   FileName = " + element.getFileName());
-				//	System.out.println("   isNativeMethod = " + element.isNativeMethod());
-				//	System.out.println("_________");
-				//}
+				
+
 				CommandFactory commandFactory = misession.getCommandFactory();
 				MIDataListChangedRegisters changedRegisters = commandFactory.createMIDataListChangedRegisters();
 				String[] parameters = changedRegisters.getParameters();
@@ -108,27 +96,7 @@ public class CDIEventListener implements ICDIEventListener{
 				System.out.println("MIGDBShowAddressSizeOperation = " + MIGDBShowAddressSize.getOperation());
 			}
 
-			MIInferior process = (MIInferior) target.getProcess();
-			
-			System.out.println("PID = " + process.getInferiorPID());
 
-			
-			//CommandFactory factory = null;
-			//MISession session1;
-			//MIGDBShowExitCode code = factory.createMIGDBShowExitCode();
-			//System.out.println("Session = " + session.toString());
-			//System.out.println("PROCESS = " + process.toString());
-			
-			//InputStream in = process.getInputStream();
-			 //  try {
-			//	for (int i = 0; i < in.available(); i++) {
-			//	   System.out.println("" + in.read());
-			//	   }
-			//} catch (IOException e) {
-			//	// TODO Auto-generated catch block
-			//	e.printStackTrace();
-			//}
-			   
 			   
 			//process.
 			if (target.isTerminated()){
