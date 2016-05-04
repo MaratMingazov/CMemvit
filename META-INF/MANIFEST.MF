@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Memvit
 Bundle-SymbolicName: Memvit;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: plugin2.Activator
+Bundle-Activator: ru.innopolis.lips.memvit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.ui;bundle-version="3.11.100",
@@ -26,5 +26,4 @@ Import-Package: org.eclipse.cdt.debug.core,
  org.eclipse.debug.core,
  org.eclipse.debug.core.model
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: plugin2,
- plugin2.views
+Export-Package: ru.innopolis.lips.memvit
