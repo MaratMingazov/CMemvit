@@ -4,16 +4,12 @@
 
    <extension
          point="org.eclipse.ui.views">
-      <category
-            name="%category.name"
-            id="Plugin2">
-      </category>
       <view
-            name="Memvit"
+            name="CMemvit"
             icon="icons/sample.gif"
             category="Plugin2"
             class="ru.innopolis.lips.memvit.Stack"
-            id="Memvit">
+            id="CMemvit">
       </view>
       <view
             category="Plugin2"
@@ -59,7 +55,7 @@
             delegate="ru.innopolis.lips.memvit.ConfigurationDelegate"
             id="Plugin_MemoryVizualization.launchConfigurationType"
             modes="debug"
-            name="Lips C++ configuration tab"
+            name="CMemvit configuration"
             public="true"
             sourceLocatorId="org.eclipse.cdt.debug.core.sourceLocator"
             sourcePathComputerId="org.eclipse.cdt.debug.core.sourcePathComputer">
