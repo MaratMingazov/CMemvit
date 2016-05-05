@@ -157,15 +157,6 @@ public class Heap extends ViewPart{
 				}
 					
 			}
-	
-			//ICDIValue eax = CDIEventListener.findRegisterValueByQualifiedName(frame, "$eax");
-			//String eaxString = CDIEventListener.getValueString(eax);		
-			//subItem = new TreeItem(item, SWT.LEFT);
-			//subItem.setText(0, "Return value : " + eaxString);				
-			
-			//subItem = new TreeItem(item, SWT.LEFT);
-			//subItem.setText(0, "StackPointer : " + registerStackPointerString);				
-
 		}
 		
 
