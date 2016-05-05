@@ -123,8 +123,6 @@ public class Heap extends ViewPart{
 				registerBasePointer = CDIEventListener.findRegisterValueByQualifiedName(frame, "$ebp");
 				registerBasePointerString = CDIEventListener.getValueString(registerBasePointer);	
 			}
-			//subItem = new TreeItem(item, SWT.LEFT);
-			//subItem.setText(0, "BasePointer : " + registerBasePointerString);	
 	
 			ICDIValue registerStackPointer = CDIEventListener.findRegisterValueByQualifiedName(frame, "$rsp");
 			String registerStackPointerString = CDIEventListener.getValueString(registerStackPointer);
