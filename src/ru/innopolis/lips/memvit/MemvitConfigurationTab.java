@@ -17,6 +17,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -32,6 +34,8 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 	// Add text boxes to receive input parameters from the user 
 	public void createControl(Composite parent) {
 	
+	 
+		
 		// Configure the overall composite
 		Composite comp = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout();
@@ -41,10 +45,21 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		gl.marginWidth = 20;
 		comp.setLayout(gl);
 		
+
+		ModifyListener modifyListener = new ModifyListener(){
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				setDirty(true);
+			    updateLaunchConfigurationDialog();
+				
+			}};
+		
 		// Create a label and text box for the debugger 
 		Label debugger = new Label(comp, SWT.NONE);
 		debugger.setText("Enter the debugger: ");
-		debuggerText = new Text(comp, SWT.BORDER);
+		debuggerText = new Text(comp, SWT.BORDER);		
+		debuggerText.addModifyListener(modifyListener);
 		debuggerText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		
@@ -53,24 +68,28 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		debugArgsLabel.setText("Enter the debugger arguments: ");
 		debugArgsText = new Text(comp, SWT.BORDER);
 		debugArgsText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		debugArgsText.addModifyListener(modifyListener);
 		
 		// Create a label and text box for the project name
 		Label projNameLabel = new Label(comp, SWT.NONE);
 		projNameLabel.setText("Enter the name of the project: ");
 		projNameText = new Text(comp, SWT.BORDER);
 		projNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		projNameText.addModifyListener(modifyListener);
 		
 		// Create a label and text box for the executable name
 		Label exeNameLabel = new Label(comp, SWT.NONE);
 		exeNameLabel.setText("Enter the name of the executable: ");
 		exeNameText = new Text(comp, SWT.BORDER);
 		exeNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		exeNameText.addModifyListener(modifyListener);
 		
 		// Create a label and text box for the executable arguments
 		Label exeArgsLabel = new Label(comp, SWT.NONE);
 		exeArgsLabel.setText("Enter the executable arguments: ");
 		exeArgsText = new Text(comp, SWT.BORDER);
 		exeArgsText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		exeArgsText.addModifyListener(modifyListener);
 		
 		// Create a label and text box for the executable arguments
 		Label platformLabel = new Label(comp, SWT.NONE);
@@ -79,6 +98,7 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		platformText = new Text(comp, SWT.BORDER);
 		platformText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		platformText.setVisible(false);
+		platformText.addModifyListener(modifyListener);
 		
 		// Create a label and text box for the debugger ID
 		Label debugIDLabel = new Label(comp, SWT.NONE);
@@ -87,6 +107,7 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		debugIDText = new Text(comp, SWT.BORDER);
 		debugIDText.setVisible(false);
 		debugIDText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		debugIDText.addModifyListener(modifyListener);
 		
 		setControl(comp);
 	}
@@ -117,7 +138,6 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 	// Update the attributes with values from the text boxes
 	public void performApply(ILaunchConfigurationWorkingCopy config) {
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, debugIDText.getText());
-		System.out.println("DDDDDDDD = " + debuggerText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_SPECIFIC_ATTRS_MAP, debugArgsText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, projNameText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, exeNameText.getText());
@@ -128,7 +148,8 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 	}
 
 	// Set default values for the six attributes
-	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
+	public void setDefaults(ILaunchConfigurationWorkingCopy config) {    
+		
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, "GDBCDIDebuggerMemvit");
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PLATFORM, platform);
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_SPECIFIC_ATTRS_MAP, "");
@@ -144,7 +165,12 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		try {
 			projName = config.getAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, "");
 			progName = config.getAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, "");
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		try {
 			debugger = config.getAttribute(IMILaunchConfigurationConstants.DEBUGGER_DEBUG_NAME_DEFAULT, "");
+			if (debugger.equals("")){debugger = config.getAttribute(IMILaunchConfigurationConstants.ATTR_DEBUG_NAME, "");}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}

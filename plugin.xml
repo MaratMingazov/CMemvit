@@ -17,13 +17,6 @@
       </view>
       <view
             category="Plugin2"
-            class="ru.innopolis.lips.memvit.Heap"
-            icon="icons/sample.gif"
-            id="plugin2.views.Heap"
-            name="%view.name.0">
-      </view>
-      <view
-            category="Plugin2"
             class="ru.innopolis.lips.memvit.ProgramInfo"
             icon="icons/sample.gif"
             id="plugin2.views.ProgramInfo"
