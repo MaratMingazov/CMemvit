@@ -9,11 +9,11 @@
             id="Plugin2">
       </category>
       <view
-            name="%view.name"
+            name="Memvit"
             icon="icons/sample.gif"
             category="Plugin2"
             class="ru.innopolis.lips.memvit.Stack"
-            id="plugin2.views.Stack">
+            id="Memvit">
       </view>
       <view
             category="Plugin2"
@@ -54,7 +54,7 @@
       <debugger
             class="ru.innopolis.lips.memvit.GDBCDIDebuggerMemvit"
             cpu="*"
-            id="plugin2.views.CDIDebugger"
+            id="GDBCDIDebuggerMemvit"
             modes="run,core,attach"
             name="CDebugger"
             platform="*">

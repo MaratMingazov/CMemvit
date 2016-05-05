@@ -26,9 +26,8 @@ import org.eclipse.swt.widgets.Text;
 
 public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 
-	Text debugIDText, debugArgsText, projNameText, 
-			exeNameText, exeArgsText, platformText;
-	String platform, projName, progName;
+	Text debugIDText, debuggerText, debugArgsText, projNameText, exeNameText, exeArgsText, platformText;
+	String platform, projName, progName, debugger;
 	
 	// Add text boxes to receive input parameters from the user 
 	public void createControl(Composite parent) {
@@ -42,11 +41,12 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		gl.marginWidth = 20;
 		comp.setLayout(gl);
 		
-		// Create a label and text box for the debugger ID
-		Label debugIDLabel = new Label(comp, SWT.NONE);
-		debugIDLabel.setText("Enter the debugger ID: ");
-		debugIDText = new Text(comp, SWT.BORDER);
-		debugIDText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		// Create a label and text box for the debugger 
+		Label debugger = new Label(comp, SWT.NONE);
+		debugger.setText("Enter the debugger: ");
+		debuggerText = new Text(comp, SWT.BORDER);
+		debuggerText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		
 		
 		// Create a label and text box for the debugger arguments
 		Label debugArgsLabel = new Label(comp, SWT.NONE);
@@ -75,32 +75,39 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 		// Create a label and text box for the executable arguments
 		Label platformLabel = new Label(comp, SWT.NONE);
 		platformLabel.setText("Enter the execution platform: ");
+		platformLabel.setVisible(false);
 		platformText = new Text(comp, SWT.BORDER);
 		platformText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		platformText.setVisible(false);
+		
+		// Create a label and text box for the debugger ID
+		Label debugIDLabel = new Label(comp, SWT.NONE);
+		debugIDLabel.setText("Enter the debugger ID: ");
+		debugIDLabel.setVisible(false);
+		debugIDText = new Text(comp, SWT.BORDER);
+		debugIDText.setVisible(false);
+		debugIDText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		setControl(comp);
 	}
 
 	// Set a name for the configuration tag
 	public String getName() {
-		return "Example";
+		return "Memvit configuration";
 	}
 
 	// Initialize the text boxes with the configuration parameters
 	public void initializeFrom(ILaunchConfiguration config) {
-		System.out.println("initializeFrom");
-		// You're supposed to use attribute values to initialize these boxes, but that hasn't worked out for me
 		try {
+			platform = Platform.getOS();
 			setDefaults(config.getWorkingCopy());
-			//debugIDText.setText("org.dworks.debugexample.ExampleDebugger");
-			debugIDText.setText("plugin2.views.CDIDebugger");
+			debugIDText.setText("GDBCDIDebuggerMemvit");
 			debugArgsText.setText(""); 
 			projNameText.setText(projName);
-			exeNameText.setText(progName); 
-			//exeNameText.setText("Debug/Project_2.exe"); 
-			
-			exeArgsText.setText(projName); 
+			exeNameText.setText(progName); 	
+			//exeArgsText.setText(projName); 
 			platformText.setText(platform);
+			debuggerText.setText(debugger);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -109,32 +116,21 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 
 	// Update the attributes with values from the text boxes
 	public void performApply(ILaunchConfigurationWorkingCopy config) {
-		System.out.println("performApply");
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, debugIDText.getText());
+		System.out.println("DDDDDDDD = " + debuggerText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_SPECIFIC_ATTRS_MAP, debugArgsText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, projNameText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, exeNameText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, exeArgsText.getText());
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PLATFORM, platformText.getText());
-		//ICDTLaunchConfigurationConstants.
-		//ICDTLaunchConfigurationConstants.
-		config.setAttribute(IMILaunchConfigurationConstants.ATTR_DEBUG_NAME, "/usr/local/bin/gdb");
-		config.setAttribute(IMILaunchConfigurationConstants.DEBUGGER_DEBUG_NAME_DEFAULT, "/usr/local/bin/gdb");
-		
+		config.setAttribute(IMILaunchConfigurationConstants.ATTR_DEBUG_NAME, debuggerText.getText());
+		config.setAttribute(IMILaunchConfigurationConstants.DEBUGGER_DEBUG_NAME_DEFAULT, debuggerText.getText());	
 	}
 
 	// Set default values for the six attributes
 	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
-		System.out.println("setDefaults");
-		// Set the debugger name attribute
-		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, 
-				"org.dworks.debugexample.ExampleDebugger");
-		
-		// Set the platform attribute
-		platform = Platform.getOS();
+		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, "GDBCDIDebuggerMemvit");
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PLATFORM, platform);
-		
-		// Set the rest of the attributes
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_SPECIFIC_ATTRS_MAP, "");
 		config.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, "");
 		
@@ -145,10 +141,10 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 			initializeCProject(cElement, config);
 			initializeProgramName(cElement, config);
 		}
-		
 		try {
 			projName = config.getAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, "");
 			progName = config.getAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, "");
+			debugger = config.getAttribute(IMILaunchConfigurationConstants.DEBUGGER_DEBUG_NAME_DEFAULT, "");
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -162,7 +158,6 @@ public class MemvitConfigurationTab extends CLaunchConfigurationTab {
 	protected void initializeProgramName(ICElement cElement, ILaunchConfigurationWorkingCopy config) {
 
 		boolean renamed = false;
-
 		if (!(cElement instanceof IBinary)) {
 			cElement = cElement.getCProject();
 		}

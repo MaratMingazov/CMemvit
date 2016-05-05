@@ -18,7 +18,6 @@ public class VarDescription implements Comparable<VarDescription> {
 		this.nested = new ArrayList<>();
 	}
 	
-	// getters and setters
 	public String getAddress() {
 		return address;
 	}

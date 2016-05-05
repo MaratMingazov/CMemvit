@@ -37,14 +37,7 @@ public class CDIEventListener implements ICDIEventListener{
 	
 	List<VarDescription> heapVars = new ArrayList<>();
 	
-	public VarDescription[] getHeapVars() {
-		VarDescription[] arr = new VarDescription[heapVars.size()];
-		heapVars.toArray(arr);
-		return arr;
-	}
-	
 	public void handleDebugEvents(ICDIEvent[] event) {
-		//System.out.println("");
 		for (ICDIEvent ev : event){
 			ICDIObject source = ev.getSource();	
 			if (source == null){
@@ -53,46 +46,6 @@ public class CDIEventListener implements ICDIEventListener{
 				return;
 			}
 			ICDITarget target = source.getTarget();
-			try {
-				//target.suspend();
-				
-				String[] sourcePaths = target.getSourcePaths();
-				for (String s : sourcePaths){
-					System.out.println("  Sourcepath = " + s);
-				}
-				
-			} catch (CDIException e1) {
-				// TODO Auto-generated catch block
-				System.out.println("OOOOOONNNNNNETTT");
-				e1.printStackTrace();
-			}
-			
-			
-			//target.getInstructions(arg0, arg1)
-			System.out.println("TARGET = " + target.toString());
-			
-			if (target instanceof Target){
-				Target ttarget = (Target) target;
-				System.out.println("MITarget = " + ttarget);
-				MISession misession = ttarget.getMISession();
-				//misession
-				
-
-				CommandFactory commandFactory = misession.getCommandFactory();
-				MIDataListChangedRegisters changedRegisters = commandFactory.createMIDataListChangedRegisters();
-				String[] parameters = changedRegisters.getParameters();
-				for (String p : parameters){System.out.println("   " + p);}
-				System.out.println("ChangedRegisters = " + changedRegisters.getParameters().length);
-				
-				MIGDBShowAddressSize MIGDBShowAddressSize = misession.getCommandFactory().createMIGDBShowAddressSize();
-				System.out.println("MIGDBShowAddressSizeOperation = " + MIGDBShowAddressSize.getOperation());
-			}
-
-
-			
-			
-			   
-			//process.
 			if (target.isTerminated()){
 				setCurrentThread(null);
 				setItIsUpdatedThread(false);
@@ -101,10 +54,16 @@ public class CDIEventListener implements ICDIEventListener{
 			try {
 				ICDIThread thread = target.getCurrentThread();
 				setCurrentThread(thread);
-				setItIsUpdatedThread(true);
-				
+				setItIsUpdatedThread(true);	
 			} catch (CDIException e) {}
 		}	
+	}
+	
+	
+	public VarDescription[] getHeapVars() {
+		VarDescription[] arr = new VarDescription[heapVars.size()];
+		heapVars.toArray(arr);
+		return arr;
 	}
 	
 	private void setCurrentThread(ICDIThread thread) {
@@ -126,8 +85,7 @@ public class CDIEventListener implements ICDIEventListener{
 	
 	public ActivationRecord[] getActivationRecords() {
 		
-		heapVars = new ArrayList<>();
-		
+		heapVars = new ArrayList<>();	
 		ICDIStackFrame[] frames = CDIEventListener.getStackFrames(getCurrentThread());
 		ActivationRecord[] records = new ActivationRecord[frames.length];
 
@@ -187,7 +145,7 @@ public class CDIEventListener implements ICDIEventListener{
 			EAXvalue = CDIEventListener.getValueString(registerReturnValue);	
 			EAXvaluetype = CDIEventListener.getValueTypeName(registerReturnValue);	
 			
-String curLineNumber = String.valueOf(frames[i].getLocator().getLineNumber());
+			String curLineNumber = String.valueOf(frames[i].getLocator().getLineNumber());
 			
 			records[i] = new ActivationRecord(curLineNumber, functionname,filename,startaddress,endaddress, "Unknown (not implemented)",vars, args);
 		}
@@ -230,7 +188,6 @@ String curLineNumber = String.valueOf(frames[i].getLocator().getLineNumber());
 	}
 	
 	public String getProgramCounter() {
-		//TODO implement
 		return null;
 	}
 	
