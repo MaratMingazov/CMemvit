@@ -17,7 +17,7 @@ To install the CMemvit plugin is to download the CMemvit.zip from Outcome folder
 
 ## Using the Eclipse Plugin
 
-Once you have installed the soot-eclipse plugin and restarted Eclipse you must make the menus available by the following:
+Once you have installed the CMemvit and restarted Eclipse you must make the menus available by the following:
 
 * Select Window -- Customize Perspective
 * Expand Other option in the tree
