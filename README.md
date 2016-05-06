@@ -9,5 +9,5 @@ CMemvit is based on idea of natural representation of process memory state. The 
 ![alt tag](https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitUserInterface.png)
 
 
-[Download](README.md)
+[Download](Outcome/CMemvit.zip)
 .
