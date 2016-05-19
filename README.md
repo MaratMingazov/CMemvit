@@ -35,4 +35,13 @@ Once you have installed the CMemvit and restarted Eclipse you must make the menu
 <img src="https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitDebugPerspective.png" width="800">
 
 * Please put a breakpoint 
+* Go DebugConfigurations -- CMemvit configuration -- right click (new).
+
+<img src="https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitConfigurationTab.png" width="800">
+
+* Fill in the required fields
+* Now we can start debug our C/C++ project. In CMemvit view the relevant information will be displayed.
+
+
+
 
