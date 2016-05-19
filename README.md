@@ -32,6 +32,7 @@ Once you have installed the CMemvit and restarted Eclipse you must make the menu
 * Expand MemoryVisualization in the tree
 * Click on CMemvit then OK
 
-Please put a breakpoint 
+<img src="https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitDebugPerspective.png" width="800">
 
-<img src="https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitBreakpoint.png" width="300">
+* Please put a breakpoint 
+
