@@ -18,6 +18,7 @@ To install the CMemvit plugin is to download the CMemvit.zip from Outcome folder
 ## Using the Eclipse Plugin
 
 As CMemvit runs on C/C++ projects, you must create or import some. Example:
+
 Step 1: click <b>File</b> -&gt; <b>New</b> -&gt; <b>Project</b><br>
 This brings up the New Project Dialog<br>
 Step 2: click <b>C/C++</b> then <b>C++ Project</b> then <b>Next</b><br>
@@ -30,3 +31,7 @@ Once you have installed the CMemvit and restarted Eclipse you must make the menu
 * Select Window -- Show View -- Other -- 
 * Expand MemoryVisualization in the tree
 * Click on CMemvit then OK
+
+Please put a breakpoint 
+
+<img src="https://raw.githubusercontent.com/MaratMingazov/CMemvit/dev/images/CMemvitBreakpoint.png" width="300">
