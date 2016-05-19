@@ -17,8 +17,16 @@ To install the CMemvit plugin is to download the CMemvit.zip from Outcome folder
 
 ## Using the Eclipse Plugin
 
+As CMemvit runs on C/C++ projects, you must create or import some. Example:
+Step 1: click <b>File</b> -&gt; <b>New</b> -&gt; <b>Project</b><br>
+This brings up the New Project Dialog<br>
+Step 2: click <b>C/C++</b> then <b>C++ Project</b> then <b>Next</b><br>
+Step 3: enter a name for your project, choose the toolchains, and click <b>Finish</b><br>
+
+
 Once you have installed the CMemvit and restarted Eclipse you must make the menus available by the following:
 
-* Select Window -- Customize Perspective
-* Expand Other option in the tree
+* Select Window -- Perspective -- Open Perspective -- Debug
+* Select Window -- Show View -- Other -- 
+* Expand MemoryVisualization in the tree
 * Click on CMemvit then OK
