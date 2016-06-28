@@ -14,9 +14,11 @@ import org.eclipse.cdt.debug.core.cdi.model.ICDIVariable;
 import org.eclipse.cdt.debug.mi.core.cdi.Session;
 import org.eclipse.cdt.debug.mi.core.cdi.model.Variable;
 
+import org.eclipse.ui.part.ViewPart;
+
 
 public class Stack extends ViewPart {
-
+	
 	private CDIEventListener cdiEventListener = null;
 	private ICDISession cdiDebugSession = null;
 	private Browser browser;
@@ -50,6 +52,8 @@ public class Stack extends ViewPart {
 	private void tryGetCdiSession(){	
 		//Session session = CDIDebugger.getSession();
 		ICDISession session = GDBCDIDebuggerMemvit.getSession();
+		
+		
 		
 		if (session == null){return;}
 		if (session.equals(this.cdiDebugSession)){return;}

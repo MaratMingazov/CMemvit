@@ -17,6 +17,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class ProgramInfo extends ViewPart {
 
+	
 	private CDIEventListener cdiEventListener = null;
 	private ICDISession cdiDebugSession = null;
 	private Tree tree;

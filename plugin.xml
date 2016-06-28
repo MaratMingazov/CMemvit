@@ -5,7 +5,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="CMemvit"
+            name="%view.name.2"
             icon="icons/sample.gif"
             category="Plugin2"
             class="ru.innopolis.lips.memvit.Stack"
@@ -55,7 +55,7 @@
             delegate="ru.innopolis.lips.memvit.ConfigurationDelegate"
             id="Plugin_MemoryVizualization.launchConfigurationType"
             modes="debug"
-            name="CMemvit configuration"
+            name="%launchConfigurationType.name"
             public="true"
             sourceLocatorId="org.eclipse.cdt.debug.core.sourceLocator"
             sourcePathComputerId="org.eclipse.cdt.debug.core.sourcePathComputer">
